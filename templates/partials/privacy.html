@@ -1,0 +1,20 @@
+<link href="/css/privacy.css" rel="stylesheet">
+<dialog id="privacy-dialog" class="privacy-banner" aria-labelledby="privacy-title" aria-describedby="privacy-description">
+  <div class="privacy-banner-heading">
+    <h2 id="privacy-title" tabindex="-1">Your privacy choices</h2>
+    <button type="button" class="privacy-close" data-privacy-close aria-label="Dismiss privacy choices">Not now</button>
+  </div>
+  <p id="privacy-description">Allow optional Google Analytics to help us understand how this site is used.
+    <span data-privacy-advertising hidden>Advertising consent also allows Google Signals and advertising personalization.</span>
+    You can change your choice at any time. <a href="/privacy.html">Read the privacy policy</a>.
+  </p>
+  <p class="privacy-status" data-privacy-status aria-live="polite"></p>
+  <p class="privacy-status" data-privacy-gpc hidden>Global Privacy Control is on, so advertising features stay off.</p>
+  <div class="privacy-actions">
+    <button type="button" data-consent-choice="rejected">Reject optional cookies</button>
+    <button type="button" data-consent-choice="analytics">Allow analytics only</button>
+    <button type="button" data-consent-choice="advertising" data-privacy-advertising hidden>Allow analytics and advertising</button>
+  </div>
+</dialog>
+<script src="/js/analytics-config.js" defer></script>
+<script src="/js/analytics.js" defer></script>

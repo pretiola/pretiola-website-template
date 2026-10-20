@@ -7,7 +7,7 @@
   <meta property="og:title" content="Privacy Policy">
   <meta property="og:type" content="website">
   <title>Privacy Policy - My Site</title>
-  <link href="/css/tailwind.css" rel="stylesheet">
+  {% include "partials/head.html" %}
 </head>
 <body class="bg-gray-50 text-gray-900 font-serif leading-normal tracking-normal overflow-x-hidden">
   <header class="sticky top-0 z-50 shadow-md">
@@ -16,9 +16,15 @@
   <main class="container mx-auto px-0 md:px-4 py-8 max-w-4xl">
     <h1 class="text-4xl font-bold text-center mb-8 text-gray-900 px-4 md:px-0">Privacy Policy</h1>
     <article class="bg-white rounded-lg shadow-md p-6 md:p-8 max-w-[800px] mx-auto mb-12 space-y-6 text-gray-800 leading-relaxed">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+      <p><strong>Template notice:</strong> Replace this page before launch with your operator name, privacy contact, hosting and logging practices, providers, purposes, retention periods, and applicable rights. Review it whenever you change the services you use.</p>
+      <h2 class="text-2xl font-bold">Optional analytics</h2>
+      <p>This starter disables analytics until the site owner configures it. When enabled, Google Analytics loads only after you allow analytics in Privacy choices. You can return to those choices from any footer. Rejecting optional cookies leaves the site usable.</p>
+      <p>The consent preference lasts up to 180 days. The analytics integration removes query strings and fragments from page addresses and sends only the origin of a referring page. Withdrawing consent clears accessible analytics cookies and reloads the page; it does not delete data already held by a provider.</p>
+      <p>Advertising features require a separate site setting and a separate visitor choice. Global Privacy Control keeps advertising features off. Describe the providers and data uses you actually enable here before turning them on.</p>
+      {% if buttondown_username != "" %}
+      <h2 class="text-2xl font-bold">Email updates</h2>
+      <p>The signup form sends your email address directly to Buttondown when you submit it. Signup is independent of analytics consent. See <a href="https://buttondown.com/legal/privacy" class="underline">Buttondown's privacy policy</a>. Complete this section with the newsletter operator's contact details and retention practices before launch.</p>
+      {% endif %}
     </article>
   </main>
   <footer>

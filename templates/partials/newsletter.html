@@ -1,0 +1,17 @@
+{% if buttondown_username != "" %}
+<section aria-labelledby="newsletter-title" class="bg-white rounded-lg shadow-md p-6 md:p-8 mx-4 md:mx-0 mb-12">
+  <h2 id="newsletter-title" class="text-2xl font-bold mb-4">Stay in touch</h2>
+  <p class="mb-4">Get our updates by email.</p>
+  <form action="https://buttondown.com/api/emails/embed-subscribe/{{ buttondown_username }}"
+    method="post" class="flex flex-col gap-4">
+    <label for="newsletter-email" class="font-bold">Email address</label>
+    <input id="newsletter-email" name="email" type="email" autocomplete="email" required
+      aria-describedby="newsletter-note" class="min-w-0 rounded border border-gray-500 p-3">
+    <input type="hidden" name="embed" value="1">
+    <button type="submit" class="bg-gray-800 text-white rounded p-3 font-bold">Subscribe</button>
+  </form>
+  <p id="newsletter-note" class="mt-4">Follow the confirmation instructions from Buttondown to finish signing up. You can unsubscribe from any newsletter email.</p>
+  <p class="mt-2">Email list powered by <a href="https://buttondown.com/{{ buttondown_username }}" class="underline">Buttondown</a>.
+    <a href="/privacy.html" class="underline">Privacy policy</a>. Email signup is separate from optional analytics.</p>
+</section>
+{% endif %}

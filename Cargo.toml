@@ -11,6 +11,7 @@ tera = "1"
 env_logger = "0.10"
 log = "0.4"
 chrono = "0.4.44"
+url = "2"
 
 [dev-dependencies]
 reqwest = "0.12"

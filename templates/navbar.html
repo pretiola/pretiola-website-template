@@ -1,22 +1,11 @@
-<nav id="navbar" aria-label="Main Navigation">
-  <!-- Checkbox for mobile menu toggle. Hidden in Lynx natively via attribute. -->
-  <input type="checkbox" id="menu-toggle" hidden class="peer" />
-
-  <!-- Hamburger Label. Hidden in Lynx naturally, visible on mobile via block, hidden on desktop via sm:hidden. -->
-  <label for="menu-toggle" class="block sm:hidden bg-gray-800 text-white border border-gray-700 p-2 text-center font-bold cursor-pointer select-none">
-    ☰ Menu
-  </label>
-
-  <!-- Navigation List -->
-  <ul class="hidden peer-checked:flex sm:flex flex-col sm:flex-row w-full">
-    <li class="flex-1 group relative">
-      <a class="block border border-gray-700 p-2 text-center font-bold bg-gray-800 text-white hover:bg-gray-600 focus:bg-gray-600" href="/">Home</a>
-    </li>
-    <li class="flex-1 group relative">
-      <a class="block border border-gray-700 p-2 text-center font-bold bg-gray-800 text-white hover:bg-gray-600 focus:bg-gray-600" href="/terms.html">Terms</a>
-    </li>
-    <li class="flex-1 group relative">
-      <a class="block border border-gray-700 p-2 text-center font-bold bg-gray-800 text-white hover:bg-gray-600 focus:bg-gray-600" href="/privacy.html">Privacy</a>
-    </li>
+<nav id="navbar" aria-label="Main navigation">
+  <div class="nav-heading">
+    <a href="/" class="nav-brand">My Site</a>
+    <button type="button" id="menu-toggle" aria-expanded="false" aria-controls="main-menu" hidden>☰ Menu</button>
+  </div>
+  <ul id="main-menu" class="nav-links">
+    <li><a href="/" {% if page_name == "index" %}aria-current="page"{% endif %}>Home</a></li>
+    <li><a href="/terms.html" {% if page_name == "terms" %}aria-current="page"{% endif %}>Terms</a></li>
+    <li><a href="/privacy.html" {% if page_name == "privacy" %}aria-current="page"{% endif %}>Privacy</a></li>
   </ul>
 </nav>
