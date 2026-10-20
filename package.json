@@ -7,9 +7,13 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test tests/*.test.cjs && npm run build",
+    "build": "npm run build:css && npm run build:images",
     "build:css": "npx @tailwindcss/cli -i ./static/css/styles.css -o ./static/css/tailwind.css --minify",
     "build:images": "node scripts/optimize-images.js"
+  },
+  "engines": {
+    "node": ">=24"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +23,7 @@
     "@tailwindcss/cli": "^4.2.2",
     "autoprefixer": "^10.4.27",
     "postcss": "^8.5.8",
-    "sharp": "^0.33.2",
+    "sharp": "0.35.5",
     "tailwindcss": "^4.2.2"
   }
 }

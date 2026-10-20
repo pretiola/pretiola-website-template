@@ -11,13 +11,77 @@
 }
 
 /* Gallery carousel */
+[hidden] {
+  display: none !important;
+}
+:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+/* The links remain available without JavaScript, including on small screens. */
+#navbar {
+  background: #1f2937;
+  color: white;
+}
+.nav-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+}
+.nav-brand {
+  font-weight: bold;
+}
+#menu-toggle {
+  border: 1px solid #9ca3af;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.75rem;
+}
+.nav-links {
+  display: flex;
+  flex-direction: column;
+}
+.nav-links li {
+  flex: 1;
+}
+.nav-links a {
+  display: block;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+.nav-links a:hover,
+.nav-links a:focus-visible,
+.nav-links a[aria-current="page"] {
+  background: #4b5563;
+}
+@media (max-width: 639px) {
+  .nav-enhanced:not(.menu-open) .nav-links {
+    display: none;
+  }
+}
+@media (min-width: 640px) {
+  #menu-toggle {
+    display: none;
+  }
+  .nav-links {
+    flex-direction: row;
+  }
+}
 .gallery-viewport {
   overflow: hidden;
   border-radius: 0.5rem;
 }
 .gallery-track {
-  display: flex;
+  display: block;
   transition: transform 0.5s ease;
+}
+[data-gallery].is-initialized .gallery-track {
+  display: flex;
+}
+[data-gallery]:not(.is-initialized) .gallery-controls {
+  display: none;
 }
 .gallery-track > * {
   min-width: 100%;
@@ -77,20 +141,23 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s, visibility 0.3s;
+  width: fit-content;
+  height: fit-content;
+  max-width: 95vw;
+  max-height: 95vh;
+  margin: auto;
+  padding: 1.5rem;
+  border: 0;
+  overflow: visible;
+  background: transparent;
 }
-#gallery-lightbox.active {
-  visibility: visible;
-  opacity: 1;
+#gallery-lightbox[open] {
+  display: flex;
 }
-.lightbox-backdrop {
-  position: absolute;
-  inset: 0;
+#gallery-lightbox::backdrop {
   background: rgba(0, 0, 0, 0.85);
 }
 .lightbox-content {
@@ -120,4 +187,19 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-track {
+    transition: none;
+  }
+}
+@media print {
+  header, footer, .gallery-controls, #gallery-lightbox {
+    display: none !important;
+  }
+  .gallery-track {
+    display: block !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }

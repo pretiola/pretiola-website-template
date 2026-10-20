@@ -1,40 +1,34 @@
 # Builder stage
-FROM rust:1-slim-bookworm as builder
+FROM rust:1-slim-bookworm AS builder
 
 WORKDIR /app
-# Install dependencies required by some crates
-RUN apt-get update && apt-get install -y pkg-config libssl-dev
 
 # Copy over manifests
 COPY Cargo.toml Cargo.lock ./
 
 # Cache dependencies
 RUN mkdir src && echo "fn main() {}" > src/main.rs
-RUN cargo build --release
+RUN cargo build --release --locked
 RUN rm -rf src
 
 # Copy source tree
-COPY . .
+COPY src src
 
 # Build for release
-RUN touch src/main.rs && cargo build --release
+RUN touch src/main.rs && cargo build --release --locked
 
 # Asset build stage (CSS + optimized images)
-FROM node:20-slim as asset-builder
+FROM node:24-bookworm-slim AS asset-builder
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 COPY templates templates
 COPY static static
 COPY scripts scripts
-RUN npm run build:css
-RUN npm run build:images
+RUN npm run build
 
 # Runtime stage
 FROM debian:bookworm-slim
-
-# Install root certs and libssl
-RUN apt-get update && apt-get install -y ca-certificates libssl3 && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 

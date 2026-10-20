@@ -9,26 +9,61 @@ on:
 env:
   CARGO_TERM_COLOR: always
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - name: Setup Node for asset checks
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+        cache: npm
+    - name: Install asset dependencies
+      run: npm ci
+    - name: Check integrations and build assets
+      run: npm test
+    - name: Check Rust formatting
+      run: cargo fmt --check
     - name: Build
-      run: cargo build --verbose
+      run: cargo build --locked --verbose
     - name: Run tests
-      run: cargo test --verbose
+      run: cargo test --locked --verbose -- --test-threads=1
+    - name: Build and smoke test container
+      run: |
+        docker build --tag pretiola-template:ci .
+        container_id=$(docker run --detach --publish 127.0.0.1:8080:8080 \
+          --env SITE_URL=http://localhost:8080 pretiola-template:ci)
+        trap 'docker logs "$container_id"; docker rm --force "$container_id" >/dev/null' EXIT
+        ready=false
+        for attempt in $(seq 1 30); do
+          if curl --fail --silent --max-time 2 http://localhost:8080/ >/dev/null; then
+            ready=true
+            break
+          fi
+          sleep 1
+        done
+        test "$ready" = true
+        for path in privacy.html terms.html sitemap.xml css/tailwind.css js/analytics.js pictures/optimized/sample_400w.webp; do
+          curl --fail --silent --max-time 5 "http://localhost:8080/$path" >/dev/null
+        done
+        robots=$(curl --fail --silent --max-time 5 http://localhost:8080/robots.txt)
+        [[ "$robots" == *"Sitemap: http://localhost:8080/sitemap.xml"* ]]
 
   deploy:
     name: Deploy to Fly.io
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && vars.FLY_APP_NAME != ''
     steps:
       - uses: actions/checkout@v4
       - name: Setup Flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy
-        run: flyctl deploy --remote-only
+        run: flyctl deploy --remote-only --app "$FLY_APP_NAME"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          FLY_APP_NAME: ${{ vars.FLY_APP_NAME }}

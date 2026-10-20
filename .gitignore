@@ -4,3 +4,6 @@
 *.swp
 node_modules
 static/pictures/optimized/
+.env
+.env.*
+!.env.example

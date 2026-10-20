@@ -1,10 +1,13 @@
 <div id="footer-bar" class="mt-12 mb-4 border-t border-gray-300 pt-8 pb-4">
-  <ul class="flex flex-row justify-center space-x-8 mb-8">
+  <ul class="flex flex-wrap justify-center gap-4 mb-8">
     <li><a class="block text-sm font-medium p-2 hover:bg-gray-200 focus:bg-gray-200 text-black underline underline-offset-4" href="/terms.html">Terms of use</a></li>
     <li><a class="block text-sm font-medium p-2 hover:bg-gray-200 focus:bg-gray-200 text-black underline underline-offset-4" href="/privacy.html">Privacy policy</a></li>
+    <li><button type="button" class="text-sm font-medium p-2 underline underline-offset-4" data-privacy-open aria-controls="privacy-dialog" aria-haspopup="dialog" hidden>Privacy choices</button></li>
   </ul>
   <div class="text-xs text-gray-600 max-w-4xl mx-auto leading-relaxed px-4 text-center">
     <p class="mb-2 font-bold text-gray-800 text-sm">&copy; {{ current_year }} [Site Name]. All rights reserved.</p>
   </div>
 </div>
-<script src="/static/js/gallery.js"></script>
+{% include "partials/privacy.html" %}
+<script src="/js/navigation.js" defer></script>
+<script src="/js/gallery.js" defer></script>

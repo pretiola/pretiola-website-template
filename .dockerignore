@@ -5,3 +5,7 @@ target
 .github
 static/pictures/*.orig.*
 static/pictures/*~
+static/pictures/optimized
+.env
+.env.*
+!.env.example

@@ -1,0 +1,42 @@
+/* Independent of the Tailwind build so privacy controls remain usable after setup. */
+[data-privacy-open][hidden],
+.privacy-banner [hidden],
+.privacy-banner:not([open]) { display: none !important; }
+.privacy-banner {
+  position: fixed;
+  inset: auto 1rem 1rem;
+  z-index: 1000;
+  width: calc(100% - 2rem);
+  max-width: 64rem;
+  max-height: 80vh;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem;
+  overflow: auto;
+  color: #111827;
+  background: #fff;
+  border: 2px solid #4b5563;
+  border-radius: .5rem;
+  box-shadow: 0 8px 40px #0004;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.privacy-banner-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: .5rem; }
+.privacy-banner h2 { font-size: 1.5rem; font-weight: 700; line-height: 1.2; }
+.privacy-banner a, .privacy-close { text-decoration: underline; text-underline-offset: .15em; }
+.privacy-close { padding: .35rem; white-space: nowrap; }
+.privacy-status { margin-top: .5rem; font-size: .95rem; }
+.privacy-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+.privacy-actions button { flex: 1 1 12rem; min-height: 2.75rem; padding: .6rem .75rem; border: 1px solid #4b5563; border-radius: .25rem; background: #fff; font-weight: 700; }
+.privacy-actions button:hover { background: #f3f4f6; }
+.privacy-banner button, [data-privacy-open] { cursor: pointer; }
+.privacy-banner :focus-visible, [data-privacy-open]:focus-visible { outline: 3px solid #1d4ed8; outline-offset: 3px; }
+/* This heading receives announcement focus; interactive controls keep visible outlines. */
+#privacy-title:focus { outline: none; }
+@media (max-width: 40rem) {
+  .privacy-banner { padding: 1rem; }
+  .privacy-actions { flex-direction: column; gap: .5rem; }
+  .privacy-actions button { flex-basis: auto; }
+}
+@media print {
+  .privacy-banner, [data-privacy-open] { display: none !important; }
+}

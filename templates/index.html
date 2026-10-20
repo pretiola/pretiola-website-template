@@ -10,7 +10,7 @@
   <meta property="og:description" content="A minimal Actix-web + Tera + Tailwind template.">
   <meta property="og:type" content="website">
   <title>My Site</title>
-  <link href="/css/tailwind.css" rel="stylesheet">
+  {% include "partials/head.html" %}
 </head>
 
 <body class="bg-gray-50 text-gray-900 font-serif leading-normal tracking-normal overflow-x-hidden">
@@ -39,7 +39,7 @@
         <source type="image/jpeg"
           srcset="/pictures/optimized/sample_1200w.jpg 1200w, /pictures/optimized/sample_800w.jpg 800w, /pictures/optimized/sample_400w.jpg 400w"
           sizes="(max-width: 640px) 100vw, 800px">
-        <img src="/pictures/optimized/sample_800w.jpg" alt="Sample image" class="w-full rounded-lg shadow-md">
+        <img src="/pictures/optimized/sample_800w.jpg" alt="Sample image" width="1600" height="900" decoding="async" fetchpriority="high" class="w-full h-auto rounded-lg shadow-md">
       </picture>
     </section>
 
@@ -47,11 +47,12 @@
     <section class="mb-12 px-4 md:px-0">
       <article class="bg-white rounded-lg shadow-md p-6 md:p-8 max-w-[800px] mx-auto space-y-4 text-gray-800 leading-relaxed">
         <h3 class="text-2xl font-bold text-gray-900">Getting Started</h3>
-        <p>Drop your HTML content into the <code class="bg-gray-100 px-1 rounded">templates/</code> directory. Any <code class="bg-gray-100 px-1 rounded">.html</code> file you add will automatically be routable at <code class="bg-gray-100 px-1 rounded">/{filename}.html</code> and included in the sitemap.</p>
+        <p>Drop your HTML content into the <code class="bg-gray-100 px-1 rounded">templates/</code> directory. Top-level pages automatically appear at <code class="bg-gray-100 px-1 rounded">/{filename}.html</code> and in the sitemap. Keep shared includes in <code class="bg-gray-100 px-1 rounded">templates/partials/</code>.</p>
         <p>Add images to <code class="bg-gray-100 px-1 rounded">static/pictures/</code> and run <code class="bg-gray-100 px-1 rounded">npm run build:images</code> to generate optimized responsive variants.</p>
         <p>Edit <code class="bg-gray-100 px-1 rounded">static/css/styles.css</code> to customize your Tailwind styles, then run <code class="bg-gray-100 px-1 rounded">npm run build:css</code> to compile.</p>
       </article>
     </section>
+    {% include "partials/newsletter.html" %}
   </main>
 
   <footer>

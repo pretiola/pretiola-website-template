@@ -1567,6 +1567,7 @@ dependencies = [
  "reqwest",
  "tera",
  "tokio",
+ "url",
 ]
 
 [[package]]
